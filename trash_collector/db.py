@@ -1,5 +1,7 @@
 import os
+from utils import depth_from_folder_path, depth_from_file_path
 
+from copy import deepcopy
 
 class BaseItem:
     def __init__(self, path: str, depth: int) -> None:
@@ -23,7 +25,7 @@ class File(BaseItem):
         self.file_name = file_name
 
     def __repr__(self) -> str:
-        return f"<File {self.path} >"
+        return f"<File {self.path} {self.size} >"
 
 
 class Folder(BaseItem):
@@ -32,24 +34,35 @@ class Folder(BaseItem):
         self.searched = False
 
     def __repr__(self) -> str:
-        return f"<Folder {self.path} >"
+        return f"<Folder {self.path} {self.size} >"
 
 
 class DB:
     def __init__(self) -> None:
         self.data: dict[int, list[BaseItem]] = {}
 
-    def add_file(self, path, depth, file_name):
+    def sort_by_type(self, _type):
+        _list = []
+        for _item_list in self.data.values():
+            for value in _item_list:
+                if type(value) == _type:
+                    _list.append(value)
+        return sorted(_list)
+
+    def add_file(self, path, file_name):
+        depth = depth_from_file_path(path)
         try: self.data[depth]
         except: self.data[depth] = []
         self.data[depth].append(File(path, depth, file_name))
 
-    def add_folder(self, path, depth):
+    def add_folder(self, path):
+        depth = depth_from_folder_path(path)
         try: self.data[depth]
         except: self.data[depth] = []
         self.data[depth].append(Folder(path, depth))
 
     def get_folder(self):
+        # I could just use self.data.values ??? why is this code like this
         for i in self.data.keys():
             for value in self.data[i]:
                 if type(value) == Folder and not value.searched:
