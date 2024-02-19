@@ -1,2 +1,21 @@
 # trash_collector
- Python cli to easily search for old/useless folders and clean them
+
+Python cli to easily help clean old folders and free up disk space.
+
+## Develop
+
+Setup a venv, activate it and install the requirements
+
+```bash
+py -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+## Testing
+
+Run the tests
+
+```bash
+py -m pytest tests
+```
