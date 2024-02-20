@@ -13,8 +13,6 @@ from search import start_search
 # cli arg = req.
 # cli options = not req.
 
-# ✨✨✨✨✨
-
 
 def main(
     search: Annotated[
