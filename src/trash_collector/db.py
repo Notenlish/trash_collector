@@ -1,8 +1,9 @@
 import os
-from utils import depth_from_folder_path, depth_from_file_path
-import typing_extensions
 import typing
 from pathlib import Path
+
+import typing_extensions
+from .utils import depth_from_file_path, depth_from_folder_path
 
 
 class BaseItem:

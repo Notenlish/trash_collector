@@ -2,13 +2,13 @@ import os
 import pathlib
 import sys
 import time
-from utils import depth_from_folder_path, text_from_filesize
 
-from rich import print, console, table
-
-from db import DB, File, Folder
+from .db import DB, File, Folder
+from rich import console, print, table
+from .utils import depth_from_folder_path, text_from_filesize
 
 console = console.Console()
+
 
 def start_search(start_dir, max_depth):
     with console.status("[bold green]Working on tasks...\n") as status:
@@ -51,7 +51,9 @@ def start_search(start_dir, max_depth):
         folder_table.add_column("Num Of Children", justify="center", style="green")
         folder_table.add_column("Size", justify="right", style="red")
         for f in results:
-            folder_table.add_row(f.path, str(f.num_of_children), text_from_filesize(f.size))
+            folder_table.add_row(
+                f.path, str(f.num_of_children), text_from_filesize(f.size)
+            )
 
         results: list[File] = db.sort_by_type(File)
         file_table = table.Table()

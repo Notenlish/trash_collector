@@ -1,14 +1,15 @@
-from rich import print, color, emoji, tree, spinner, status, progress_bar, live
+from rich import color, emoji, live, print, progress_bar, spinner, status, tree
 from rich.console import Console
 from rich.table import Table
 
 console = Console()
 
-import typer
-
 from typing import Optional
+
+import typer
 from typing_extensions import Annotated
-from search import start_search
+
+from .search import start_search
 
 # cli arg = req.
 # cli options = not req.
@@ -35,8 +36,11 @@ def main(
         typer.Option("--max-depth", "-md", help="Max depth for search"),
     ] = -1,
 ):
-    """ """
     if search in [None, "--search", "-s"]:
         search = True
     if search:
         start_search(start_dir, max_depth)
+
+
+if __name__ == "__main__":
+    typer.run(main)

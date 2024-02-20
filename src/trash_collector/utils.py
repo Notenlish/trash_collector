@@ -1,10 +1,11 @@
 from pathlib import Path
 
+
 def text_from_filesize(size: int):
     KB = 1_024
-    MB = KB ** 2
-    GB = KB ** 3
-    TB = KB ** 4
+    MB = KB**2
+    GB = KB**3
+    TB = KB**4
     if size < KB:
         return f"{size} bytes"
     elif size < MB:

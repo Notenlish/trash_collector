@@ -19,3 +19,12 @@ Run the tests
 ```bash
 py -m pytest tests
 ```
+
+## Build
+
+`py -m pip install --upgrade build`
+`py -m build`
+
+## Build to test
+
+`pip install .`
