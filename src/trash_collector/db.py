@@ -2,6 +2,8 @@ import os
 import typing
 from pathlib import Path
 
+import json
+
 import typing_extensions
 from .utils import depth_from_file_path, depth_from_folder_path
 
@@ -27,6 +29,15 @@ class File(BaseItem):
         super().__init__(path, depth)
         self.file_name = file_name
 
+    def to_json(self):
+        _dict = {
+            "path": self.path,
+            "depth": self.depth,
+            "size": self.size,
+            "file_name": self.file_name,
+        }
+        return _dict
+
     def __repr__(self) -> str:
         return f"<File {self.path} {self.size} >"
 
@@ -37,6 +48,16 @@ class Folder(BaseItem):
         self.searched = False
         self.num_of_children = 0
 
+    def to_json(self):
+        _dict = {
+            "path": self.path,
+            "depth": self.depth,
+            "size": self.size,
+            "searched": self.searched,
+            "num_of_children": self.num_of_children,
+        }
+        return _dict
+
     def __repr__(self) -> str:
         return f"<Folder {self.path} {self.size} >"
 
@@ -44,6 +65,17 @@ class Folder(BaseItem):
 class DB:
     def __init__(self) -> None:
         self.data: dict[int, list[BaseItem]] = {}
+
+    def save_to_json(self, path: str = "trash-collector.json"):
+        with open(path, "w") as f:
+            _dict = {"file": [], "folder": []}
+            for _l in self.data.values():
+                for _v in _l:
+                    if type(_v) == File:
+                        _dict["file"].append(_v.to_json())
+                    if type(_v) == Folder:
+                        _dict["folder"].append(_v.to_json())
+            json.dump(_dict, f)
 
     def folder_size_count(self):
         folders: list[Folder] = self.sort_by_type(Folder)

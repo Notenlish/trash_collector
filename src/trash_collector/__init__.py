@@ -35,11 +35,14 @@ def main(
         Optional[int],
         typer.Option("--max-depth", "-md", help="Max depth for search"),
     ] = -1,
+    save_results: Annotated[
+        Optional[bool], typer.Option("--save", "-sv", help="Saves results in a JSON.")
+    ] = False,
 ):
     if search in [None, "--search", "-s"]:
         search = True
     if search:
-        start_search(start_dir, max_depth)
+        start_search(start_dir, max_depth, save_results)
 
 
 if __name__ == "__main__":

@@ -10,7 +10,7 @@ from .utils import depth_from_folder_path, text_from_filesize
 console = console.Console()
 
 
-def start_search(start_dir, max_depth):
+def start_search(start_dir, max_depth, should_save: bool):
     with console.status("[bold green]Working on tasks...\n") as status:
         console.log("Initializing DB")
         time.sleep(1)
@@ -67,3 +67,7 @@ def start_search(start_dir, max_depth):
 
         console.print(f"Here are the Folder results! :sparkles:")
         console.print(folder_table)
+
+        if should_save:
+            db.save_to_json()
+            console.print("Saved results to JSON!")
