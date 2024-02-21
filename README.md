@@ -1,6 +1,8 @@
 # trash_collector
 
 Python cli to easily help clean old folders and free up disk space.
+Use `py -m trash_collector --help` to see the available commands.
+or `python3 -m trash_collector --help` if you are using a linux system.
 
 ## Develop
 
@@ -28,5 +30,3 @@ py -m pytest tests
 ## Build to test
 
 `pip install .`
-
-
