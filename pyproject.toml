@@ -1,6 +1,6 @@
 [project]
 name = "trash_collector"
-version = "0.0.2"
+version = "0.0.3"
 dynamic = []
 authors = [
   { name="Notenlish (Ihsan Carkci)", email="notenlish@gmail.com" },
